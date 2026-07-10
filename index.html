@@ -2,145 +2,63 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f47f9e">
-
-  <meta
-    name="description"
-    content="Um presentinho de 1 mês de trenzinhos."
-  >
-
+  <meta name="description" content="Um presentinho de 1 mês de trenzinhos.">
   <title>1 mês de trenzinhos ❤️</title>
 
+  <link rel="preload" as="image" href="assets/fotos/foto1.jpg" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;800&display=swap"
-    rel="stylesheet"
-  >
-
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
-  <div
-    class="floating-hearts"
-    aria-hidden="true"
-  ></div>
+  <div class="floating-hearts" aria-hidden="true"></div>
 
   <main class="page-shell">
-
     <section class="hero">
-
-      <div class="eyebrow">
-        nosso primeiro capítulo 💗
-      </div>
+      <div class="eyebrow">nosso primeiro capítulo 💗</div>
 
       <h1>
         FELIZ 1 MÊS DE
         <span>TRENZINHOS</span>
       </h1>
 
-      <div
-        class="train-line"
-        aria-hidden="true"
-      >
+      <div class="train-line" aria-hidden="true">
         <span>🚂</span>
         <div class="rail"></div>
         <span>💞</span>
       </div>
 
-      <div class="main-photo-card">
-        <img
-          id="mainPhoto"
-          src="assets/fotos/foto1.jpg"
-          alt="Nossa foto principal"
-        >
+      <p class="top-message">obrigado por cada momento...</p>
 
-        <div class="photo-glow"></div>
-      </div>
+      <div class="carousel" aria-label="Nossas lembranças">
+        <button class="nav prev" id="prevBtn" type="button" aria-label="Foto anterior">‹</button>
 
-      <p class="love-note">
-        obrigado por cada momento...<br>
-        <strong>te amo muito muito</strong>
-      </p>
-
-    </section>
-
-    <section
-      class="memories"
-      aria-label="Nossas lembranças"
-    >
-
-      <div class="section-heading">
-        <span>obrigueido por ser meu trenzinho</span>
-        <h2>resumuainho</h2>
-      </div>
-
-      <div class="carousel">
-
-        <button
-          class="nav prev"
-          id="prevBtn"
-          type="button"
-          aria-label="Foto anterior"
-        >
-          ‹
-        </button>
-
-        <div class="carousel-window">
-          <div
-            class="carousel-track"
-            id="carouselTrack"
-          ></div>
+        <div class="carousel-window" id="carouselWindow">
+          <div class="carousel-track" id="carouselTrack"></div>
         </div>
 
-        <button
-          class="nav next"
-          id="nextBtn"
-          type="button"
-          aria-label="Próxima foto"
-        >
-          ›
-        </button>
-
+        <button class="nav next" id="nextBtn" type="button" aria-label="Próxima foto">›</button>
       </div>
 
       <div class="carousel-info">
         <span id="photoCounter">1 / 40</span>
       </div>
 
-      <div
-        class="dots"
-        id="dots"
-        aria-label="Navegação das fotos"
-      ></div>
+      <div class="dots" id="dots" aria-label="Navegação das fotos"></div>
 
+      <p class="bottom-message">obrigueido por ser meu trenzinho</p>
+      <p class="love-note">te amo muito muito</p>
     </section>
 
     <footer>
-      <div class="footer-train">
-        🚃💗🚃💗🚃
-      </div>
-
+      <div class="footer-train">🚃💗🚃💗🚃</div>
       <p>de amor</p>
     </footer>
-
   </main>
 
   <script src="js/app.js"></script>
-
 </body>
 </html>
