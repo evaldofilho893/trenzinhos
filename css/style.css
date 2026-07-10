@@ -378,13 +378,12 @@ h1 span {
 
 .slide-card {
   position: relative;
-
   overflow: hidden;
 
-  aspect-ratio: 16 / 10;
+  /* Aumentei de 16/10 para 16/14 */
+  aspect-ratio: 16 / 14;
 
   border-radius: 24px;
-
   background: #fdeaf0;
 
   box-shadow:
@@ -394,14 +393,13 @@ h1 span {
 
 .slide-card img {
   display: block;
-
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  object-fit: contain;
+  background: #fdeaf0;
 
-  transition:
-    transform 0.8s ease;
+  transition: transform 0.8s ease;
 }
 
 .slide-card:hover img {
