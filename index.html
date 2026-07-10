@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f47f9e" />
+  <meta name="description" content="Um presentinho de 1 mês de trenzinhos." />
+
+  <title>1 mês de trenzinhos ❤️</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div class="floating-hearts" aria-hidden="true"></div>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="eyebrow">nosso primeiro capítulo 💗</div>
+
+      <h1>
+        FELIZ 1 MÊS DE
+        <span>TRENZINHOS</span>
+      </h1>
+
+      <div class="train-line" aria-hidden="true">
+        <span>🚂</span>
+        <div class="rail"></div>
+        <span>💞</span>
+      </div>
+
+      <div class="main-photo-card">
+        <img id="mainPhoto" src="assets/fotos/foto1.jpg" alt="Nossa foto principal" />
+        <div class="photo-glow"></div>
+      </div>
+
+      <p class="love-note">
+        obrigado por cada momento...<br />
+        por cada risada, por cada carinho e por estar comigo.<br />
+        <strong>te amo muito muito</strong>
+      </p>
+
+      <div class="little-message">
+        e que venham muitos outros trilhos, risadas e histórias com você.
+      </div>
+    </section>
+
+    <section class="memories" aria-label="Nossas lembranças">
+      <div class="section-heading">
+        <span>um pedacinho da gente</span>
+        <h2>Nossos momentos</h2>
+      </div>
+
+      <div class="carousel">
+        <button class="nav prev" id="prevBtn" type="button" aria-label="Foto anterior">‹</button>
+
+        <div class="carousel-window">
+          <div class="carousel-track" id="carouselTrack"></div>
+        </div>
+
+        <button class="nav next" id="nextBtn" type="button" aria-label="Próxima foto">›</button>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Navegação das fotos"></div>
+
+      <div class="upload-area">
+        <input id="photoInput" type="file" accept="image/*" multiple hidden />
+        <button id="uploadBtn" class="upload-button" type="button">
+          <span>♡</span>
+          Adicionar fotos
+          <span>♡</span>
+        </button>
+        <p>
+          As fotos escolhidas aqui aparecem somente neste aparelho e nesta visita.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-train">🚃💗🚃💗🚃</div>
+      <p>feito com amor, só pra você.</p>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
