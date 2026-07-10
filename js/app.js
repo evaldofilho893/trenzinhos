@@ -94,8 +94,7 @@ function criarSlides() {
 
 function atualizarCarrossel() {
   if (indiceAtual < 0) {
-    indiceAtual =
-      fotos.length - 1;
+    indiceAtual = fotos.length - 1;
   }
 
   if (indiceAtual >= fotos.length) {
@@ -104,8 +103,6 @@ function atualizarCarrossel() {
 
   carouselTrack.style.transform =
     `translateX(-${indiceAtual * 100}%)`;
-
-  atualizarFotoPrincipal();
 
   photoCounter.textContent =
     `${indiceAtual + 1} / ${fotos.length}`;
@@ -120,8 +117,7 @@ function atualizarCarrossel() {
     );
   });
 
-  const dotAtivo =
-    dots[indiceAtual];
+  const dotAtivo = dots[indiceAtual];
 
   if (dotAtivo) {
     dotAtivo.scrollIntoView({
@@ -131,8 +127,7 @@ function atualizarCarrossel() {
     });
   }
 }
-
-function atualizarFotoPrincipal() {
+/*function atualizarFotoPrincipal() {
   mainPhoto.classList.add("changing");
 
   setTimeout(() => {
@@ -144,7 +139,7 @@ function atualizarFotoPrincipal() {
 
     mainPhoto.classList.remove("changing");
   }, 160);
-}
+}*/
 
 function proximaFoto() {
   indiceAtual++;
