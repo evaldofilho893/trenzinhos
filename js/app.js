@@ -155,7 +155,7 @@ function fotoAnterior() {
 
 function iniciarAutoplay() {
   pararAutoplay();
-  autoplayId = setInterval(proximaFoto, 4000);
+  autoplayId = setInterval(proximaFoto, 3000);
 }
 
 function pararAutoplay() {
