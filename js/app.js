@@ -1,100 +1,176 @@
-const fotosIniciais = [
-  "assets/fotos/foto1.jpg",
-  "assets/fotos/foto2.jpg",
-  "assets/fotos/foto3.jpg",
-  "assets/fotos/foto4.jpg",
-  "assets/fotos/foto5.jpg",
-  "assets/fotos/foto6.jpg",
-  "assets/fotos/foto7.jpg",
-  "assets/fotos/foto8.jpg"
-];
+const QUANTIDADE_DE_FOTOS = 40;
 
-let fotos = [...fotosIniciais];
+const fotos = Array.from(
+  { length: QUANTIDADE_DE_FOTOS },
+  (_, indice) => `assets/fotos/foto${indice + 1}.jpg`
+);
+
 let indiceAtual = 0;
-let autoPlayId = null;
+let autoplayId = null;
 
-const track = document.getElementById("carouselTrack");
-const dots = document.getElementById("dots");
-const mainPhoto = document.getElementById("mainPhoto");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const uploadBtn = document.getElementById("uploadBtn");
-const photoInput = document.getElementById("photoInput");
-const toast = document.getElementById("toast");
+const carouselTrack =
+  document.getElementById("carouselTrack");
+
+const dotsContainer =
+  document.getElementById("dots");
+
+const mainPhoto =
+  document.getElementById("mainPhoto");
+
+const prevBtn =
+  document.getElementById("prevBtn");
+
+const nextBtn =
+  document.getElementById("nextBtn");
+
+const photoCounter =
+  document.getElementById("photoCounter");
 
 function criarSlides() {
-  track.innerHTML = "";
-  dots.innerHTML = "";
+  carouselTrack.innerHTML = "";
+  dotsContainer.innerHTML = "";
 
-  fotos.forEach((src, index) => {
-    const slide = document.createElement("article");
+  fotos.forEach((src, indice) => {
+    const slide =
+      document.createElement("article");
+
     slide.className = "slide";
 
-    const card = document.createElement("div");
+    const card =
+      document.createElement("div");
+
     card.className = "slide-card";
 
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = `Nossa lembrança ${index + 1}`;
-    img.loading = index === 0 ? "eager" : "lazy";
+    const imagem =
+      document.createElement("img");
 
-    img.addEventListener("click", () => {
-      indiceAtual = index;
-      atualizarCarrossel();
-      mainPhoto.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
+    imagem.src = src;
 
-    card.appendChild(img);
+    imagem.alt =
+      `Nossa lembrança ${indice + 1}`;
+
+    imagem.loading =
+      indice === 0
+        ? "eager"
+        : "lazy";
+
+    imagem.addEventListener(
+      "error",
+      () => {
+        console.error(
+          `Não foi possível carregar: ${src}`
+        );
+      }
+    );
+
+    card.appendChild(imagem);
     slide.appendChild(card);
-    track.appendChild(slide);
+    carouselTrack.appendChild(slide);
 
-    const dot = document.createElement("button");
+    const dot =
+      document.createElement("button");
+
     dot.className = "dot";
     dot.type = "button";
-    dot.setAttribute("aria-label", `Ir para a foto ${index + 1}`);
-    dot.addEventListener("click", () => {
-      indiceAtual = index;
-      atualizarCarrossel();
-      reiniciarAutoplay();
-    });
 
-    dots.appendChild(dot);
+    dot.setAttribute(
+      "aria-label",
+      `Ir para a foto ${indice + 1}`
+    );
+
+    dot.addEventListener(
+      "click",
+      () => {
+        indiceAtual = indice;
+
+        atualizarCarrossel();
+        reiniciarAutoplay();
+      }
+    );
+
+    dotsContainer.appendChild(dot);
   });
-
-  atualizarCarrossel();
 }
 
 function atualizarCarrossel() {
-  if (!fotos.length) return;
+  if (indiceAtual < 0) {
+    indiceAtual =
+      fotos.length - 1;
+  }
 
-  if (indiceAtual < 0) indiceAtual = fotos.length - 1;
-  if (indiceAtual >= fotos.length) indiceAtual = 0;
+  if (indiceAtual >= fotos.length) {
+    indiceAtual = 0;
+  }
 
-  track.style.transform = `translateX(-${indiceAtual * 100}%)`;
-  mainPhoto.src = fotos[indiceAtual];
+  carouselTrack.style.transform =
+    `translateX(-${indiceAtual * 100}%)`;
 
-  [...dots.children].forEach((dot, index) => {
-    dot.classList.toggle("active", index === indiceAtual);
+  atualizarFotoPrincipal();
+
+  photoCounter.textContent =
+    `${indiceAtual + 1} / ${fotos.length}`;
+
+  const dots =
+    dotsContainer.querySelectorAll(".dot");
+
+  dots.forEach((dot, indice) => {
+    dot.classList.toggle(
+      "active",
+      indice === indiceAtual
+    );
   });
+
+  const dotAtivo =
+    dots[indiceAtual];
+
+  if (dotAtivo) {
+    dotAtivo.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+}
+
+function atualizarFotoPrincipal() {
+  mainPhoto.classList.add("changing");
+
+  setTimeout(() => {
+    mainPhoto.src =
+      fotos[indiceAtual];
+
+    mainPhoto.alt =
+      `Nossa foto ${indiceAtual + 1}`;
+
+    mainPhoto.classList.remove("changing");
+  }, 160);
 }
 
 function proximaFoto() {
-  indiceAtual += 1;
+  indiceAtual++;
+
   atualizarCarrossel();
 }
 
 function fotoAnterior() {
-  indiceAtual -= 1;
+  indiceAtual--;
+
   atualizarCarrossel();
 }
 
 function iniciarAutoplay() {
   pararAutoplay();
-  autoPlayId = setInterval(proximaFoto, 5000);
+
+  autoplayId = setInterval(
+    proximaFoto,
+    5000
+  );
 }
 
 function pararAutoplay() {
-  if (autoPlayId) clearInterval(autoPlayId);
+  if (autoplayId) {
+    clearInterval(autoplayId);
+  }
 }
 
 function reiniciarAutoplay() {
@@ -102,80 +178,137 @@ function reiniciarAutoplay() {
   iniciarAutoplay();
 }
 
-function mostrarToast(mensagem) {
-  toast.textContent = mensagem;
-  toast.classList.add("show");
+prevBtn.addEventListener(
+  "click",
+  () => {
+    fotoAnterior();
+    reiniciarAutoplay();
+  }
+);
 
-  clearTimeout(mostrarToast.timeout);
-  mostrarToast.timeout = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2600);
-}
+nextBtn.addEventListener(
+  "click",
+  () => {
+    proximaFoto();
+    reiniciarAutoplay();
+  }
+);
 
-prevBtn.addEventListener("click", () => {
-  fotoAnterior();
-  reiniciarAutoplay();
-});
+document.addEventListener(
+  "keydown",
+  event => {
+    if (event.key === "ArrowLeft") {
+      fotoAnterior();
+      reiniciarAutoplay();
+    }
 
-nextBtn.addEventListener("click", () => {
-  proximaFoto();
-  reiniciarAutoplay();
-});
-
-uploadBtn.addEventListener("click", () => photoInput.click());
-
-photoInput.addEventListener("change", (event) => {
-  const arquivos = [...event.target.files].filter(file =>
-    file.type.startsWith("image/")
-  );
-
-  if (!arquivos.length) return;
-
-  const novasFotos = arquivos.map(file => URL.createObjectURL(file));
-  fotos = novasFotos;
-  indiceAtual = 0;
-  criarSlides();
-  reiniciarAutoplay();
-
-  mostrarToast(`${novasFotos.length} foto(s) adicionada(s) 💗`);
-});
+    if (event.key === "ArrowRight") {
+      proximaFoto();
+      reiniciarAutoplay();
+    }
+  }
+);
 
 let touchStartX = 0;
 let touchEndX = 0;
 
-track.addEventListener("touchstart", event => {
-  touchStartX = event.changedTouches[0].screenX;
-}, { passive: true });
-
-track.addEventListener("touchend", event => {
-  touchEndX = event.changedTouches[0].screenX;
-  const distancia = touchStartX - touchEndX;
-
-  if (Math.abs(distancia) > 45) {
-    distancia > 0 ? proximaFoto() : fotoAnterior();
-    reiniciarAutoplay();
+carouselTrack.addEventListener(
+  "touchstart",
+  event => {
+    touchStartX =
+      event.changedTouches[0].screenX;
+  },
+  {
+    passive: true
   }
-}, { passive: true });
+);
+
+carouselTrack.addEventListener(
+  "touchend",
+  event => {
+    touchEndX =
+      event.changedTouches[0].screenX;
+
+    const distancia =
+      touchStartX - touchEndX;
+
+    if (Math.abs(distancia) < 45) {
+      return;
+    }
+
+    if (distancia > 0) {
+      proximaFoto();
+    } else {
+      fotoAnterior();
+    }
+
+    reiniciarAutoplay();
+  },
+  {
+    passive: true
+  }
+);
 
 function criarCoracoesFlutuantes() {
-  const area = document.querySelector(".floating-hearts");
+  const area =
+    document.querySelector(
+      ".floating-hearts"
+    );
 
-  for (let i = 0; i < 18; i++) {
-    const heart = document.createElement("span");
-    heart.className = "heart";
-    heart.textContent = i % 3 === 0 ? "♡" : "♥";
-    heart.style.left = `${Math.random() * 100}%`;
-    heart.style.fontSize = `${12 + Math.random() * 18}px`;
-    heart.style.animationDuration = `${10 + Math.random() * 12}s`;
-    heart.style.animationDelay = `${Math.random() * 12}s`;
-    area.appendChild(heart);
+  const quantidade = 18;
+
+  for (
+    let indice = 0;
+    indice < quantidade;
+    indice++
+  ) {
+    const coracao =
+      document.createElement("span");
+
+    coracao.className = "heart";
+
+    coracao.textContent =
+      indice % 3 === 0
+        ? "♡"
+        : "♥";
+
+    coracao.style.left =
+      `${Math.random() * 100}%`;
+
+    coracao.style.fontSize =
+      `${12 + Math.random() * 18}px`;
+
+    coracao.style.animationDuration =
+      `${10 + Math.random() * 12}s`;
+
+    coracao.style.animationDelay =
+      `${Math.random() * 12}s`;
+
+    area.appendChild(coracao);
   }
 }
 
-document.addEventListener("visibilitychange", () => {
-  document.hidden ? pararAutoplay() : iniciarAutoplay();
-});
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (document.hidden) {
+      pararAutoplay();
+    } else {
+      iniciarAutoplay();
+    }
+  }
+);
+
+mainPhoto.addEventListener(
+  "error",
+  () => {
+    console.error(
+      `Não foi possível carregar a foto principal: ${mainPhoto.src}`
+    );
+  }
+);
 
 criarSlides();
 criarCoracoesFlutuantes();
+atualizarCarrossel();
 iniciarAutoplay();
