@@ -1,4 +1,4 @@
-const QUANTIDADE_DE_FOTOS = 40;
+const QUANTIDADE_DE_FOTOS = 34;
 
 const fotos = Array.from(
   { length: QUANTIDADE_DE_FOTOS },
